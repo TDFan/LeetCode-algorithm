@@ -9,27 +9,22 @@ import "fmt"
 HammingDistance(4, 14) + HammingDistance(4, 2) + HammingDistance(14, 2) = 2 + 2 + 2 = 6.
 
 */
-func HammingDistance(a, b int) int {
-	temp := a ^ b
-	sum := 0
-	for {
-		if temp&1 == 1 {
-			sum++
-		}
-		temp >>= 1
-		if temp == 0 {
-			break
+func totalHammingDistance(nums []int) int {
+	arr := [32]int{}
+	for i := 0; i < len(nums); i++ {
+		temp := nums[i]
+		flag := 0
+		for temp > 0 {
+			if temp&1 == 1 {
+				arr[flag]++
+			}
+			flag++
+			temp >>= 1
 		}
 	}
-	return sum
-}
-func totalHammingDistance(nums []int) int {
 	ans := 0
-	for i := 0; i < len(nums); i++ {
-		for j := i + 1; j < len(nums); j++ {
-			distance := HammingDistance(nums[i], nums[j])
-			ans += distance
-		}
+	for i := 0; i < 32; i++ {
+		ans += (len(nums) - arr[i]) * arr[i]
 	}
 	return ans
 }
