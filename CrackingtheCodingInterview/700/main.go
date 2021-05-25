@@ -9,8 +9,6 @@ type TreeNode struct {
 }
 
 func searchBST(root *TreeNode, val int) *TreeNode {
-	var left *TreeNode = nil
-	var right *TreeNode = nil
 	if root == nil {
 		return nil
 	}
@@ -18,15 +16,12 @@ func searchBST(root *TreeNode, val int) *TreeNode {
 		return root
 	}
 	if root.Val > val {
-		left = searchBST(root.Left, val)
+		return searchBST(root.Left, val)
 	}
 	if root.Val < val {
-		right = searchBST(root.Right, val)
+		return searchBST(root.Right, val)
 	}
-	if left != nil {
-		return left
-	}
-	return right
+	return root
 }
 func main() {
 	root := &TreeNode{
